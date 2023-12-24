@@ -222,8 +222,8 @@ func LookupExtIface(ifname string, ifregexS string, ifcanreach string, ipStack i
 				return nil, fmt.Errorf("failed to get default v6 interface: %w", err)
 			}
 			if iface.Name != v6Iface.Name {
-				return nil, fmt.Errorf("v6 default route interface %s "+
-					"must be the same with v4 default route interface %s", v6Iface.Name, iface.Name)
+				// return nil, fmt.Errorf("v6 default route interface %s "+
+				// 	"must be the same with v4 default route interface %s", v6Iface.Name, iface.Name)
 			}
 		}
 	}
