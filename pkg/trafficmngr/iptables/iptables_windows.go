@@ -19,6 +19,8 @@ import (
 	"github.com/flannel-io/flannel/pkg/lease"
 )
 
+type IPTablesManager struct{}
+
 type IPTables interface {
 	AppendUnique(table string, chain string, rulespec ...string) error
 	ChainExists(table, chain string) (bool, error)
@@ -27,20 +29,14 @@ type IPTables interface {
 	Exists(table string, chain string, rulespec ...string) (bool, error)
 }
 
-type IPTablesRule struct {
-	table    string
-	action   string
-	chain    string
-	rulespec []string
+func (iptm IPTablesManager) SetupAndEnsureForwardRules(flannelIPv4Network, flannelIPv6Network string, resyncPeriod int) {
 }
 
-func CreateIP4Chain(table, chain string)                                        { return }
-func CreateIP6Chain(table, chain string)                                        { return }
-func MasqRules(cluster_cidrs []ip.IP4Net, lease *lease.Lease) []IPTablesRule    { return nil }
-func ForwardRules(flannelNetwork string) []IPTablesRule                         { return nil }
-func teardownIPTables(ipt IPTables, rules []IPTablesRule)                       {}
-func SetupAndEnsureIP4Tables(getRules func() []IPTablesRule, resyncPeriod int)  {}
-func SetupAndEnsureIP6Tables(getRules func() []IPTablesRule, resyncPeriod int)  {}
-func MasqIP6Rules(cluster_cidrs []ip.IP6Net, lease *lease.Lease) []IPTablesRule { return nil }
-func DeleteIP4Tables(rules []IPTablesRule) error                                { return nil }
-func DeleteIP6Tables(rules []IPTablesRule) error                                { return nil }
+func (iptm IPTablesManager) SetupAndEnsureMasqRules(flannelIPv4Net, prevSubnet ip.IP4Net,
+	prevNetworks []ip.IP4Net,
+	currentlease *lease.Lease,
+	flannelIPv6Net, prevIPv6Subnet ip.IP6Net,
+	prevIPv6Networks []ip.IP6Net,
+	resyncPeriod int) error {
+	return nil
+}
